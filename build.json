@@ -1,0 +1,93 @@
+{
+    "title": "",
+    "championKey": "",
+    "map": "any",
+    "mode": "any",
+    "type": "custom",
+    "priority": true,
+    "sortrank": 1000000000,
+    "blocks": [
+        {
+            "recMath": false,
+            "minSummonerLevel": -1,
+            "maxSummonerLevel": -1,
+            "showIfSummonerSpell": "",
+            "hideIfSummonerSpell": "",
+            "type": "Starting items",
+            "items": [
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "recMath": false,
+            "minSummonerLevel": -1,
+            "maxSummonerLevel": -1,
+            "showIfSummonerSpell": "",
+            "hideIfSummonerSpell": "",
+            "type": "Core items",
+            "items": [
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "recMath": false,
+            "minSummonerLevel": -1,
+            "maxSummonerLevel": -1,
+            "showIfSummonerSpell": "",
+            "hideIfSummonerSpell": "",
+            "type": "Alternative items",
+            "items": [
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                },
+                {
+                    "id": "",
+                    "count": 1
+                }
+            ]
+        }
+    ]
+}
