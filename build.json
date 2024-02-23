@@ -14,16 +14,7 @@
             "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
             "type": "Starting items",
-            "items": [
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                }
-            ]
+            "items": []
         },
         {
             "recMath": false,
@@ -32,32 +23,7 @@
             "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
             "type": "Core items",
-            "items": [
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                }
-            ]
+            "items": []
         },
         {
             "recMath": false,
@@ -66,28 +32,7 @@
             "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
             "type": "Alternative items",
-            "items": [
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                },
-                {
-                    "id": "",
-                    "count": 1
-                }
-            ]
+            "items": []
         }
     ]
 }
