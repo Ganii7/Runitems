@@ -1,38 +1,35 @@
 {
-    "title": "",
-    "championKey": "",
-    "map": "any",
-    "mode": "any",
-    "type": "custom",
-    "priority": true,
-    "sortrank": 1000000000,
+    "associatedChampions": [],
+    "associatedMaps": [
+        11,
+        12
+    ],
     "blocks": [
         {
-            "recMath": false,
-            "minSummonerLevel": -1,
-            "maxSummonerLevel": -1,
-            "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
-            "type": "Starting items",
-            "items": []
+            "items": [],
+            "showIfSummonerSpell": "",
+            "type": "Starting items"
         },
         {
-            "recMath": false,
-            "minSummonerLevel": -1,
-            "maxSummonerLevel": -1,
-            "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
-            "type": "Core items",
-            "items": []
+            "items": [],
+            "showIfSummonerSpell": "",
+            "type": "Core items"
         },
         {
-            "recMath": false,
-            "minSummonerLevel": -1,
-            "maxSummonerLevel": -1,
-            "showIfSummonerSpell": "",
             "hideIfSummonerSpell": "",
-            "type": "Alternative items",
-            "items": []
+            "items": [],
+            "showIfSummonerSpell": "",
+            "type": "Alternative items"
         }
-    ]
+    ],
+    "map": "HA",
+    "mode": "any",
+    "preferredItemSlots": [],
+    "sortrank": 6,
+    "startedFrom": "blank",
+    "title": "RunitemsBuild",
+    "type": "global",
+    "uid": "fe6fb290-d4bb-11ee-8506-5d1291b14ca5"
 }
