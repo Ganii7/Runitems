@@ -1,13 +1,9 @@
 import json
 
 def add_item(item, final_objects, loaded_build, block_index):
-    # If the item is not in final objects
     if item["id"] not in final_objects:
-        # Add the item to the loaded build
         loaded_build["blocks"][block_index]["items"].append(item)
-        # Add the item's id to the final objects
         final_objects.add(item["id"])
-    # Return the updated final objects and loaded build
     return final_objects, loaded_build
 
 def process_json_files(aatrox_file, build_file):
@@ -17,13 +13,11 @@ def process_json_files(aatrox_file, build_file):
         final_objects = set()
         alternative_items = []
 
-        # Clear the items lists in the blocks of the loaded build
         for block in loaded_build["blocks"]:
             block["items"].clear()
 
         for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][0]["blocks"]):
             for x, item in enumerate(items["items"]):
-                # Determine which block to add the item to
                 if i == 1 or (i >= 1 and x == 0 and (len(loaded_build["blocks"][1]["items"]) < 6)):
                     final_objects, loaded_build = add_item(item, final_objects, loaded_build, 1)
                     # Boots exception
