@@ -15,8 +15,8 @@ def process_json_files(aatrox_file, lane, build_file):
         final_objects = set()
         alternative_items = []
 
-        for block in loaded_build["blocks"]:
-            block["items"].clear()
+        # for block in loaded_build["blocks"]:
+        #     block["items"].clear()
 
         for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][lane]["blocks"]):
             for x, item in enumerate(items["items"]):
