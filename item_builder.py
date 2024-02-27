@@ -8,7 +8,7 @@ def add_item(item, final_objects, loaded_build, block_index):
     return final_objects, loaded_build
 
 
-def process_json_files(aatrox_file, build_file):
+def process_json_files(aatrox_file, lane, build_file):
     with open(aatrox_file) as aatrox, open(build_file) as build:
         loaded_build = json.load(build)
         loaded_aatrox = json.load(aatrox)
@@ -18,7 +18,7 @@ def process_json_files(aatrox_file, build_file):
         for block in loaded_build["blocks"]:
             block["items"].clear()
 
-        for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][0]["blocks"]):
+        for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][lane]["blocks"]):
             for x, item in enumerate(items["items"]):
                 if i == 1 or (
                     i >= 1 and x == 0 and (len(loaded_build["blocks"][1]["items"]) < 6)
@@ -50,5 +50,5 @@ def write_to_file(data, filename):
 
 
 if __name__ == "__main__":
-    modified_build = process_json_files("Aatrox.json", "build.json")
+    modified_build = process_json_files("Aatrox.json", 0, "build.json")
     write_to_file(modified_build, "build-1.json")
