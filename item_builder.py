@@ -20,9 +20,7 @@ def process_json_files(aatrox_file, lane, build_file):
 
         for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][lane]["blocks"]):
             for x, item in enumerate(items["items"]):
-                if i == 1 or (
-                    i >= 1 and x == 0 and (len(loaded_build["blocks"][1]["items"]) < 6)
-                ):
+                if i == 1 or (i >= 1 and x == 0):
                     final_objects, loaded_build = add_item(
                         item, final_objects, loaded_build, 1
                     )
@@ -37,9 +35,14 @@ def process_json_files(aatrox_file, lane, build_file):
                     alternative_items.append(item)
 
         for alternative_item in alternative_items:
-            final_objects, loaded_build = add_item(
-                alternative_item, final_objects, loaded_build, 2
-            )
+            if len(loaded_build["blocks"][1]["items"]) < 6:
+                final_objects, loaded_build = add_item(
+                    alternative_item, final_objects, loaded_build, 1
+                )
+            else:
+                final_objects, loaded_build = add_item(
+                    alternative_item, final_objects, loaded_build, 2
+                )
 
     return loaded_build
 
