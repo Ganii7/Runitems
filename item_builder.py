@@ -14,11 +14,18 @@ def process_json_files(aatrox_file, lane, build_file):
         loaded_aatrox = json.load(aatrox)
         final_objects = set()
         alternative_items = []
-
+        laneid = 0
+        
         # for block in loaded_build["blocks"]:
         #     block["items"].clear()
+        
+        # sort the line and saving the apropiated id
+        for i, mylane in enumerate(loaded_aatrox):
+            if mylane["position"] == lane:
+                laneid = i
 
-        for i, items in enumerate(loaded_aatrox[0]["itemBuilds"][lane]["blocks"]):
+        # sort the items and descarting the repited ones
+        for i, items in enumerate(loaded_aatrox[laneid]["itemBuilds"][0]["blocks"]):
             for x, item in enumerate(items["items"]):
                 if i == 1 or (i >= 1 and x == 0):
                     final_objects, loaded_build = add_item(
@@ -34,6 +41,7 @@ def process_json_files(aatrox_file, lane, build_file):
                 else:
                     alternative_items.append(item)
 
+        # add alternative items to the build if there is repited ones or at the end
         for alternative_item in alternative_items:
             if len(loaded_build["blocks"][1]["items"]) < 6:
                 final_objects, loaded_build = add_item(
@@ -53,5 +61,5 @@ def write_to_file(data, filename):
 
 
 if __name__ == "__main__":
-    modified_build = process_json_files("Aatrox.json", 0, "build.json")
+    modified_build = process_json_files("Aatrox.json", "top", "build.json")
     write_to_file(modified_build, "build-1.json")
