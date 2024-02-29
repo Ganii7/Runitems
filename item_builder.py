@@ -8,10 +8,11 @@ def add_item(item, final_objects, loaded_build, block_index):
     return final_objects, loaded_build
 
 
-def process_json_files(aatrox_file, lane, build_file):
-    with open(aatrox_file) as aatrox, open(build_file) as build:
+def process_json_files(champ, lane, build_file):
+    champ = "champions/" + champ + ".json"
+    with open(champ) as champion, open(build_file) as build:
         loaded_build = json.load(build)
-        loaded_aatrox = json.load(aatrox)
+        loaded_champion = json.load(champion)
         final_objects = set()
         alternative_items = []
         laneid = 0
@@ -20,12 +21,12 @@ def process_json_files(aatrox_file, lane, build_file):
         #     block["items"].clear()
         
         # sort the line and saving the apropiated id
-        for i, mylane in enumerate(loaded_aatrox):
+        for i, mylane in enumerate(loaded_champion):
             if mylane["position"] == lane:
                 laneid = i
 
         # sort the items and descarting the repited ones
-        for i, items in enumerate(loaded_aatrox[laneid]["itemBuilds"][0]["blocks"]):
+        for i, items in enumerate(loaded_champion[laneid]["itemBuilds"][0]["blocks"]):
             for x, item in enumerate(items["items"]):
                 if i == 1 or (i >= 1 and x == 0):
                     final_objects, loaded_build = add_item(
@@ -61,5 +62,5 @@ def write_to_file(data, filename):
 
 
 if __name__ == "__main__":
-    modified_build = process_json_files("Aatrox.json", "top", "build.json")
+    modified_build = process_json_files("Aatrox", "top", "build.json")
     write_to_file(modified_build, "build-1.json")
