@@ -59,8 +59,18 @@ def process_json_files(champ, lane, build_file):
 def write_to_file(data, filename):
     with open(filename, "w") as file:
         json.dump(data, file, indent=4)
+        
+def write_to_lol(data, lolpath):
+    lolpath += ".json"
+    with open(lolpath) as oldlolfile:
+        lolfileplantilla = json.load(oldlolfile)
+        lolfileplantilla["itemSets"].append(data)
+        with open(lolpath, "w") as newlolfile:
+            json.dump(lolfileplantilla, newlolfile, indent=4)
+        
 
 
 if __name__ == "__main__":
     modified_build = process_json_files("Aatrox", "top", "build.json")
     write_to_file(modified_build, "build-1.json")
+    write_to_lol(modified_build, r"C:\Games\Riot Games\League of Legends\Config\ItemSets")
