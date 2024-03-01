@@ -71,6 +71,6 @@ def update_lol_file(data, lol_filepath):
 
 if __name__ == "__main__":
     modified_build = process_json_files("Aatrox", "top", "build.json")
-    # write_to_file(modified_build, "build-1.json") # Test build
+    # write_json(modified_build, "build-1.json") # Test build
     update_lol_file(
         modified_build, r"C:\Games\Riot Games\League of Legends\Config\ItemSets")
