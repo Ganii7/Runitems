@@ -16,10 +16,10 @@ def process_json_files(champ, lane, build_file):
         final_objects = set()
         alternative_items = []
         laneid = 0
-        
+
         # for block in loaded_build["blocks"]:
         #     block["items"].clear()
-        
+
         # sort the line and saving the apropiated id
         for i, mylane in enumerate(loaded_champion):
             if mylane["position"] == lane:
@@ -55,9 +55,11 @@ def process_json_files(champ, lane, build_file):
 
     return loaded_build
 
+
 def write_json(data, filepath):
     with open(filepath, "w") as file:
         json.dump(data, file, indent=4)
+
 
 def update_lol_file(data, lol_filepath):
     lol_filepath += ".json"
@@ -70,4 +72,5 @@ def update_lol_file(data, lol_filepath):
 if __name__ == "__main__":
     modified_build = process_json_files("Aatrox", "top", "build.json")
     # write_to_file(modified_build, "build-1.json") # Test build
-    update_lol_file(modified_build, r"C:\Games\Riot Games\League of Legends\Config\ItemSets")
+    update_lol_file(
+        modified_build, r"C:\Games\Riot Games\League of Legends\Config\ItemSets")
