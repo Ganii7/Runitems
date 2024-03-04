@@ -1,4 +1,6 @@
 import json
+import time
+import requests
 
 
 def add_item(item, final_objects, loaded_build, block_index):
@@ -52,17 +54,36 @@ def process_json_files(champ, lane, build_file):
                 final_objects, loaded_build = add_item(
                     alternative_item, final_objects, loaded_build, 2
                 )
-
+    loaded_build["associatedChampions"].append(champ)
+    loaded_build["uid"] = str(time.time())
     return loaded_build
 
+def update_champions_build():
+        print("hola")
+        championid = 1
+        url = 'https://c.lbj.moe/api/source/u.gg/champion-id/'
+        response = requests.get(url+str(championid))
+        data = {}
+        while championid < 1000:
+            if(response.status_code == 200):
+                json_data = response.json()
+                print(json_data["champion_alias"])
+                data.update({json_data["champion_alias"]: championid})
+            championid += 1
+            response = requests.get(url+str(championid))
+        print(data)
+        file = open("championid.json", "w")
+        json.dump(data, file, indent= 4)
 
+
+    
 def write_json(data, filepath):
     with open(filepath, "w") as file:
         json.dump(data, file, indent=4)
 
 
 def update_lol_file(data, lol_filepath):
-    lol_filepath += ".json"
+    lol_filepath += "\Config\ItemSets.json"
     with open(lol_filepath) as old_lol_file:
         lol_data = json.load(old_lol_file)
         lol_data["itemSets"].append(data)
@@ -70,7 +91,8 @@ def update_lol_file(data, lol_filepath):
 
 
 if __name__ == "__main__":
-    modified_build = process_json_files("Aatrox", "top", "build.json")
-    # write_json(modified_build, "build-1.json") # Test build
-    update_lol_file(
-        modified_build, r"C:\Games\Riot Games\League of Legends\Config\ItemSets")
+    #modified_build = process_json_files("Aatrox", "top", "build.json")
+    #write_json(modified_build, "build-1.json") # Test build
+    #update_lol_file(
+    #    modified_build, r"C:\Games\Riot Games\League of Legends")
+    update_champions_build()
