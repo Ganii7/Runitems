@@ -59,7 +59,6 @@ def process_json_files(champ, lane, build_file):
     return loaded_build
 
 def update_champions_build():
-        print("hola")
         championid = 1
         url = 'https://c.lbj.moe/api/source/u.gg/champion-id/'
         response = requests.get(url+str(championid))
@@ -67,14 +66,13 @@ def update_champions_build():
         while championid < 1000:
             if(response.status_code == 200):
                 json_data = response.json()
-                print(json_data["champion_alias"])
-                data.update({json_data["champion_alias"]: championid})
+                print(json_data)
+                data.update(json_data)
+                file = open("champions/"+json_data["champion_alias"]+".json", "w")
+                json.dump(json_data, file, indent= 4)
+                file.close()
             championid += 1
             response = requests.get(url+str(championid))
-        print(data)
-        file = open("championid.json", "w")
-        json.dump(data, file, indent= 4)
-
 
     
 def write_json(data, filepath):
