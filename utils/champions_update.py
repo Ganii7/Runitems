@@ -1,10 +1,15 @@
 from git import Repo
 
-def pull_repository():
-    Repo("../champions").remotes.origin.pull()
-
-def clone_repository():
-    Repo.clone_from('https://github.com/Ganii7/Runeitems-champions.git', r'../champions')
+def pull_repository(folder):
+    Repo(folder).remotes.origin.pull()
     
-#if __name__ == "__main__":
-#   pull_repository()
+def clone_repository(folder):
+    Repo.clone_from('https://github.com/Ganii7/Runeitems-champions.git', folder)
+    
+if __name__ == "__main__":
+    file = r"../champions"
+    try:
+        pull_repository(file)
+    except:
+        clone_repository(file)
+        print("Error to pull, cloning repository")

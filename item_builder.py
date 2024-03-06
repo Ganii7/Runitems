@@ -1,6 +1,7 @@
 import json
 import time
 import requests
+from utils.champions_update import *
 
 
 def add_item(item, final_objects, loaded_build, block_index):
@@ -11,8 +12,7 @@ def add_item(item, final_objects, loaded_build, block_index):
 
 
 def process_json_files(champ, lane, build_file):
-    champ = "champions/" + champ + ".json"
-    with open(champ) as champion, open(build_file) as build:
+    with open("champions/" + champ + ".json") as champion, open(build_file) as build:
         loaded_build = json.load(build)
         loaded_champion = json.load(champion)
         final_objects = set()
@@ -54,25 +54,9 @@ def process_json_files(champ, lane, build_file):
                 final_objects, loaded_build = add_item(
                     alternative_item, final_objects, loaded_build, 2
                 )
-    loaded_build["associatedChampions"].append(champ)
+        loaded_build["associatedChampions"].append(loaded_champion[0]["id"])
     loaded_build["uid"] = str(time.time())
     return loaded_build
-
-def update_champions_build():
-        championid = 1
-        url = 'https://c.lbj.moe/api/source/u.gg/champion-id/'
-        response = requests.get(url+str(championid))
-        data = {}
-        while championid < 1000:
-            if(response.status_code == 200):
-                json_data = response.json()
-                print(json_data)
-                data.update(json_data)
-                file = open("champions/"+json_data["champion_alias"]+".json", "w")
-                json.dump(json_data, file, indent= 4)
-                file.close()
-            championid += 1
-            response = requests.get(url+str(championid))
 
     
 def write_json(data, filepath):
@@ -86,11 +70,20 @@ def update_lol_file(data, lol_filepath):
         lol_data = json.load(old_lol_file)
         lol_data["itemSets"].append(data)
     write_json(lol_data, lol_filepath)
+    
+
+def update_local_files(file):
+    try:
+        pull_repository(file)
+    except:
+        clone_repository(file)
+        print("Error to pull, cloning repository")
 
 
 if __name__ == "__main__":
-    #modified_build = process_json_files("Aatrox", "top", "build.json")
+    update_local_files("./champions")
+    modified_build = process_json_files("Aatrox", "top", "build.json")
     #write_json(modified_build, "build-1.json") # Test build
-    #update_lol_file(
-    #    modified_build, r"C:\Games\Riot Games\League of Legends")
-    update_champions_build()
+    #update_lol_file(process_json_files("Aatrox", "top", "build.json"), r"C:\Games\Riot Games\League of Legends")
+    update_lol_file(modified_build, r"C:\Games\Riot Games\League of Legends")
+    
