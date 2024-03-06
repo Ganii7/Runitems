@@ -1,6 +1,5 @@
 import json
 import time
-import requests
 from utils.champions_update import *
 
 
@@ -58,7 +57,7 @@ def process_json_files(champ, lane, build_file):
     loaded_build["uid"] = str(time.time())
     return loaded_build
 
-    
+
 def write_json(data, filepath):
     with open(filepath, "w") as file:
         json.dump(data, file, indent=4)
@@ -70,20 +69,11 @@ def update_lol_file(data, lol_filepath):
         lol_data = json.load(old_lol_file)
         lol_data["itemSets"].append(data)
     write_json(lol_data, lol_filepath)
-    
-
-def update_local_files(file):
-    try:
-        pull_repository(file)
-    except:
-        clone_repository(file)
-        print("Error to pull, cloning repository")
 
 
 if __name__ == "__main__":
     update_local_files("./champions")
     modified_build = process_json_files("Aatrox", "top", "build.json")
-    #write_json(modified_build, "build-1.json") # Test build
-    #update_lol_file(process_json_files("Aatrox", "top", "build.json"), r"C:\Games\Riot Games\League of Legends")
+    # write_json(modified_build, "build-1.json") # Test build
+    # update_lol_file(process_json_files("Aatrox", "top", "build.json"), r"C:\Games\Riot Games\League of Legends")
     update_lol_file(modified_build, r"C:\Games\Riot Games\League of Legends")
-    
