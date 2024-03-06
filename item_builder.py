@@ -1,6 +1,6 @@
 import json
 import time
-from utils.file_processor import *
+from utils.file_updater import *
 
 
 def add_item(item, final_objects, loaded_build, block_index):
