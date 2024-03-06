@@ -1,20 +1,18 @@
 import git
 
 
-def pull_repository(folder):
-    git.Repo(folder).remotes.origin.pull()
+def update_local_files(folder):
+    """
+    Update local files by pulling the specified repository. If the repository does not exist, clone it and print an error message.
 
-
-def clone_repository(folder):
-    git.Repo.clone_from(
-        'https://github.com/Ganii7/Runeitems-champions.git', folder)
-
-
-def update_local_files(file):
+    :param folder: the folder to update
+    :return: None
+    """
     try:
-        pull_repository(file)
+        git.Repo(folder).remotes.origin.pull()
     except git.exc.NoSuchPathError:
-        clone_repository(file)
+        git.Repo.clone_from(
+            'https://github.com/Ganii7/Runeitems-champions.git', folder)
         print("Error to pull, cloning repository")
 
 

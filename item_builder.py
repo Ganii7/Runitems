@@ -4,6 +4,17 @@ from utils.champions_update import *
 
 
 def add_item(item, final_objects, loaded_build, block_index):
+    """
+    Adds an item to the final_objects and loaded_build if the item's id is not already present in final_objects. 
+    Parameters:
+    - item: the item to be added
+    - final_objects: a set of the final objects
+    - loaded_build: the loaded build object
+    - block_index: the index of the block in loaded_build
+    Returns:
+    - final_objects: the updated set of final objects
+    - loaded_build: the updated loaded build object
+    """
     if item["id"] not in final_objects:
         loaded_build["blocks"][block_index]["items"].append(item)
         final_objects.add(item["id"])
@@ -11,12 +22,24 @@ def add_item(item, final_objects, loaded_build, block_index):
 
 
 def process_json_files(champion, lane, build_file):
+    """
+    Processes the JSON files for a given champion and lane to generate a final build.
+    Args:
+    champion (str): The name of the champion.
+    lane (str): The lane of the champion.
+    build_file (str): The file path of the build file.
+    Returns:
+    dict: The final build for the champion in the specified lane.
+    """
+
+    # Load champion and build files
     with open(f"champions/{champion}.json") as champion_file, open(build_file) as build:
         loaded_build = json.load(build)
         loaded_champion = json.load(champion_file)
         final_objects = set()
         alternative_items = []
 
+        # Find the lane ID for the given lane
         laneid = 0
         for i, mylane in enumerate(loaded_champion):
             if mylane["position"] == lane:
@@ -39,12 +62,13 @@ def process_json_files(champion, lane, build_file):
                 else:
                     alternative_items.append(item)
 
-        # add alternative items to the build if there is repited ones or at the end
+        # Add alternative items to the build if there are repeated ones or at the end
         for alternative_item in alternative_items:
             block_index = 1 if len(
                 loaded_build["blocks"][1]["items"]) < 6 else 2
             final_objects, loaded_build = add_item(
                 alternative_item, final_objects, loaded_build, block_index)
+        # Update associated champions and uid
         loaded_build["associatedChampions"].append(loaded_champion[0]["id"])
     loaded_build["uid"] = str(time.time())
     return loaded_build
@@ -56,6 +80,17 @@ def write_json(data, filepath):
 
 
 def update_lol_file(data, lol_filepath):
+    """
+    Update the League of Legends (LoL) file with new data.
+
+    Args:
+        data: The new data to be added to the LoL file.
+        lol_filepath: The file path to the LoL file.
+
+    Returns:
+        None
+    """
+
     lol_filepath += "\Config\ItemSets.json"
     with open(lol_filepath) as old_lol_file:
         lol_data = json.load(old_lol_file)
