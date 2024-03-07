@@ -48,5 +48,5 @@ if __name__ == "__main__":
     update_local_files(file)
     for filename in os.listdir("./champions"):
         if filename.endswith(".json"):
-            update_lol_file(filename, r"C:\Games\Riot Games\League of Legends")
+            update_lol_file(filename, r"C:\Riot Games\League of Legends")
             print(filename)
