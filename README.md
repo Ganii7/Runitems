@@ -1,43 +1,31 @@
-# Roadmap
+## League of Legends Champion Items Importer
 
-- [ ] v0.0.1
-  - [ ] API LOL
-    - [ ] Research and select appropriate API endpoints
-    - [ ] Implement functionality to retrieve item data
-  - [ ] Import items
-    - [ ] Parse API response and validate data
-    - [ ] Store items in local database
-  - [ ] Sort items
-    - [ ] Implement sorting algorithm by champ, winrate, and playrate
-  - [ ] Export to LOL client in order
-    - [ ] Define export format and structure
-    - [ ] Implement export functionality
-  - [ ] Create a basic build feature
+This Python script is designed to import items to all League of Legends champions at once. It reads item data from JSON files located in a specified folder, then updates the League of Legends item sets accordingly.
+
+### Dependencies
+
+- Python 3.x
+- GitPython library (`pip install GitPython`)
+
+### Usage
+
+1. Clone or download this repository.
+2. Install dependencies using `pip install -r requirements.txt`.
+3. Make sure you have League of Legends installed and know the path to your League of Legends directory.
+4. Place your champion item JSON files in the `champions` directory.
+5. Run the script using `python import_items.py`.
+
+### Functionality
+
+- `update_local_files(folder)`: This function updates local files by pulling the specified repository. If the repository does not exist, it clones it and prints an error message.
   
-- [ ] v0.0.2
-  - [ ] Refine item import
-    - [ ] Handle API errors and edge cases
-    - [ ] Improve data validation and error reporting
-  - [ ] Refine sorting
-    - [ ] Distinguish between start items and core items
-    - [ ] Implement sorting based on item categories
-  - [ ] Refine export
-    - [ ] Enhance export format to differentiate start items and core items
-  - [ ] Enhance build feature based on user feedback
-  
-- [ ] v0.0.3 - optional
-  - [ ] Export alternative items based on user preferences
-  
-- [ ] v0.1/v1
-  - [ ] UI Design
-    - [ ] Create wireframes/mockups for UI
-    - [ ] Implement UI components and interactions
-  - [ ] Item Icons
-    - [ ] Research and integrate item icons into the application
-  - [ ] Testing
-    - [ ] Write unit tests for critical components
-    - [ ] Conduct integration testing with API and local database
-    - [ ] Perform user acceptance testing with a small group of users
-  - [ ] Documentation
-    - [ ] Document codebase, APIs, and usage instructions
-    - [ ] Create a README file with project overview and setup instructions
+- `write_json(data, filepath)`: Writes JSON data to a file specified by the file path.
+
+- `update_lol_file(filename, lol_filepath)`: Updates the League of Legends item sets file with new data from the specified JSON file.
+
+### Example
+bash
+$ python import_items.py
+
+### Acknowledgments
+Special thanks to [Al Cheung](https://github.com/cangzhang).
