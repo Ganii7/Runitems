@@ -1,5 +1,5 @@
 import json
-import time
+import os
 from utils.file_updater import *
 
 
@@ -21,7 +21,7 @@ def add_item(item, final_objects, loaded_build, block_index):
     return final_objects, loaded_build
 
 
-def process_json_files(champion, lane, build_file):
+def process_json_files(champion, build_file):
     """
     Processes the JSON files for a given champion and lane to generate a final build.
     Args:
@@ -33,7 +33,7 @@ def process_json_files(champion, lane, build_file):
     """
 
     # Load champion and build files
-    with open(f"champions/{champion}.json") as champion_file, open(build_file) as build:
+    with open(f"champions/{champion}") as champion_file, open(build_file) as build:
         loaded_build = json.load(build)
         loaded_champion = json.load(champion_file)
         final_objects = set()
@@ -41,26 +41,26 @@ def process_json_files(champion, lane, build_file):
 
         # Find the lane ID for the given lane
         laneid = 0
-        for i, mylane in enumerate(loaded_champion):
-            if mylane["position"] == lane:
-                laneid = i
 
         # sort the items and descarting the repited ones
         for i, items in enumerate(loaded_champion[laneid]["itemBuilds"][0]["blocks"]):
-            for x, item in enumerate(items["items"]):
-                if i == 1 or (i >= 1 and x == 0):
-                    final_objects, loaded_build = add_item(
-                        item, final_objects, loaded_build, 1
-                    )
-                    # Boots exception
-                    if x == 0 and i == 1:
-                        loaded_build["blocks"][0]["items"].append(item)
-                elif i == 0:
-                    final_objects, loaded_build = add_item(
-                        item, final_objects, loaded_build, 0
-                    )
-                else:
-                    alternative_items.append(item)
+            try:
+                for x, item in enumerate(items["items"]):
+                    if i == 1 or (i >= 1 and x == 0):
+                        final_objects, loaded_build = add_item(
+                            item, final_objects, loaded_build, 1
+                        )
+                        # Boots exception
+                        if x == 0 and i == 1:
+                            loaded_build["blocks"][0]["items"].append(item)
+                    elif i == 0:
+                        final_objects, loaded_build = add_item(
+                            item, final_objects, loaded_build, 0
+                        )
+                    else:
+                        alternative_items.append(item)
+            except TypeError:
+                pass
 
         # Add alternative items to the build if there are repeated ones or at the end
         for alternative_item in alternative_items:
@@ -70,13 +70,15 @@ def process_json_files(champion, lane, build_file):
                 alternative_item, final_objects, loaded_build, block_index)
         # Update associated champions and uid
         loaded_build["associatedChampions"].append(loaded_champion[0]["id"])
-    loaded_build["uid"] = str(time.time())
+    loaded_build["title"] = "RunitemsBuild - "+loaded_champion[0]["alias"]
+    loaded_build["uid"] = "Runeitems"
     return loaded_build
 
 
 if __name__ == "__main__":
     update_local_files("./champions")
-    modified_build = process_json_files("Aatrox", "top", "build.json")
-    # write_json(modified_build, "build-1.json") # Test build
-    # update_lol_file(process_json_files("Aatrox", "top", "build.json"), r"C:\Games\Riot Games\League of Legends")
-    update_lol_file(modified_build, r"C:\Riot Games\League of Legends")
+    for filename in os.listdir("./champions"):
+        if filename.endswith(".json"):
+            print(filename)
+            modified_build = process_json_files(filename, "build.json")
+            update_lol_file(modified_build, r"C:\Games\Riot Games\League of Legends")
