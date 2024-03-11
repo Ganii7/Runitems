@@ -1,11 +1,15 @@
 import git
 import json
 import os
+import shutil
 
 
 def write_json(data, filepath):
     with open(filepath, "w") as file:
         json.dump(data, file, indent=4)
+        
+def copie_file(data, filepath):
+    shutil.copyfile(data,filepath)
 
 
 def update_lol_file(filename, lol_filepath):
@@ -46,7 +50,18 @@ def update_local_files(folder):
 if __name__ == "__main__":
     file = r"champions"
     update_local_files(file)
+    champion = input("Enter champion name:")
     for filename in os.listdir("./champions"):
-        if filename.endswith(".json"):
-            update_lol_file(filename, r"C:\Riot Games\League of Legends")
+        if filename.endswith(".json") and filename.startswith(champion):
+            update_lol_file(filename, r"C:\Games\Riot Games\League of Legends")
+            # copie_file(f"./champions/{filename}" , r"C:\Games\Riot Games\League of Legends\Config\Champions/"+str(filename.removesuffix(".json"))+r"\Recommended/"+filename)
             print(filename)
+    
+    # for filename in os.listdir("./champions"):
+    #     if filename.endswith(".json"):
+    #         update_lol_file(filename, r"C:\Games\Riot Games\League of Legends")
+    #         print(filename)
+    
+    
+
+    
