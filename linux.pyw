@@ -14,7 +14,7 @@ class MyApp(Adw.Application):
     def on_activate(self, app):
         # Create a Builder
         builder = Gtk.Builder()
-        builder.add_from_file("main.ui")
+        builder.add_from_file("linux.ui")
 
         # Obtain and show the main window
         self.win = builder.get_object("main_window")

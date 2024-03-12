@@ -82,7 +82,7 @@
                     <child>
                       <object class="GtkLabel">
                         <property name="halign">center</property>
-                        <property name="label">This will import the most commonly used item build for each lane (top, jungle, mid, bottom, support) for every champion in the game.</property>
+                        <property name="label">This will import the most commonly used item build for each lane (top, jungle, mid, bottom, support) for every champion.</property>
                         <property name="margin-bottom">24</property>
                         <property name="margin-end">48</property>
                         <property name="margin-start">48</property>
